@@ -1,0 +1,40 @@
+CREATE TABLE equipo (
+  id_equipo VARCHAR2(1) NOT NULL, 
+  nom_equipo VARCHAR2(10) NOT NULL,
+  porc NUMBER(5,2) NOT NULL,
+  CONSTRAINT pk_equipo PRIMARY KEY (id_equipo)
+);
+CREATE TABLE categorizacion (
+  id_categorizacion CHAR(1) NOT NULL, 
+  nom_categorizacion VARCHAR2(10) NOT NULL , 
+  porcentaje NUMBER NOT NULL,
+  CONSTRAINT pk_categorizacion PRIMARY KEY (id_categorizacion)
+);
+CREATE TABLE empleado (
+  id_empleado NUMBER(6) NOT NULL, 
+  rut_empleado VARCHAR2(10) NOT NULL, 
+  nombres VARCHAR2(25) NOT NULL, 
+  paterno VARCHAR2(15) NOT NULL, 
+  materno VARCHAR2(15), 
+  fecnac DATE NOT NULL, 
+  feccontrato DATE NOT NULL, 
+  sueldo NUMBER NOT NULL,
+  comision NUMBER NOT NULL,
+  id_equipo VARCHAR2(1), 
+  id_categorizacion CHAR(1) NOT NULL,
+  CONSTRAINT pk_empleado PRIMARY KEY (id_empleado),
+  CONSTRAINT ak_empleado UNIQUE (rut_empleado),
+  CONSTRAINT chk_comision CHECK (comision BETWEEN 0.12 AND 0.25)
+);
+CREATE TABLE detalleboleta (
+    id_boleta VARCHAR2(10) NOT NULL,
+    id_producto NUMBER NOT NULL, 
+    cantidad NUMBER NOT NULL,
+    CONSTRAINT pk_detalleboleta PRIMARY KEY (id_boleta)
+) ;
+CREATE TABLE fabrica (
+  id_fabrica NUMBER(4) ,
+  nom_fabrica VARCHAR2(60) NOT NULL,
+  CONSTRAINT pk_fabrica PRIMARY KEY (id_fabrica)
+);
+DROP TABLE fabrica CASCADE CONSTRAINTS;
